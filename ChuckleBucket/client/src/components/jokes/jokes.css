@@ -1,0 +1,10 @@
+.joke-card {
+    margin: 1.5rem !important;
+    width: 18rem !important;
+}
+
+.card-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+}
