@@ -15,7 +15,7 @@ const JokeCard = ({ joke }) => {
                     {joke.text}
                 </CardText>
                 <CardText>
-                    By {joke.userProfile.displayName}
+                    By <Link to={`/jokes/author/${joke.userProfileId}`} >{joke.userProfile.displayName}</Link>
                 </CardText>
                 <Button>
                     Laugh
