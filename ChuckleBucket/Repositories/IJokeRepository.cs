@@ -6,5 +6,6 @@ namespace ChuckleBucket.Repositories
     public interface IJokeRepository
     {
         List<Joke> GetAllJokes();
+        List<Joke> GetJokesByCategoryId(int categoryId);
     }
 }

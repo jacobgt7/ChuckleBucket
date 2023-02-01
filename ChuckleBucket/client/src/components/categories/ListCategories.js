@@ -23,7 +23,7 @@ const ListCategories = () => {
             <h1>Categories</h1>
             <ul className="categories-list">
                 {categories.map(category => {
-                    return <li className="category">
+                    return <li className="category" key={category.id}>
                         <Link to={`/jokes/category/${category.id}`}>{category.name}</Link>
                     </li>
                 })}
