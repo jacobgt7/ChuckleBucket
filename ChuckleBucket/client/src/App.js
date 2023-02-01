@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
-import { onLoginStatusChange } from './modules/AuthManager';
+import { onLoginStatusChange } from './modules/authManager';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
 import ApplicationViews from './components/ApplicationViews';
