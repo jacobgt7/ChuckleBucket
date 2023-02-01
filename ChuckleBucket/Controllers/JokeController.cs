@@ -1,6 +1,8 @@
-﻿using ChuckleBucket.Repositories;
+﻿using ChuckleBucket.Models;
+using ChuckleBucket.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ChuckleBucket.Controllers
 {
@@ -19,6 +21,17 @@ namespace ChuckleBucket.Controllers
         public IActionResult Get()
         {
             return Ok(_jokeRepository.GetAllJokes());
+        }
+
+        [HttpGet("category/{id}")]
+        public IActionResult Get(int id)
+        {
+            List<Joke> jokes = _jokeRepository.GetJokesByCategoryId(id);
+            if (jokes == null)
+            {
+                return NotFound();
+            }
+            return Ok(jokes);
         }
     }
 }
