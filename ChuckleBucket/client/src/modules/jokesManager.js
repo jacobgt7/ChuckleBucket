@@ -25,3 +25,15 @@ export const getJokesByCategory = (id) => {
             .then(res => res.json())
     })
 }
+
+export const getJokesByAuthor = (id) => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/author/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+    })
+}

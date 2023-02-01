@@ -7,5 +7,6 @@ namespace ChuckleBucket.Repositories
     {
         List<Joke> GetAllJokes();
         List<Joke> GetJokesByCategoryId(int categoryId);
+        List<Joke> GetJokesByAuthorId(int authorId);
     }
 }

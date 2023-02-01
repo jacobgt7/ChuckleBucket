@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import ListCategories from "./categories/ListCategories";
 import Home from "./jokes/Home";
+import JokeAuthor from "./jokes/JokeAuthor";
 import JokeCategory from "./jokes/JokeCategory";
 import Login from "./Login";
 import Register from "./Register";
@@ -19,6 +20,7 @@ const ApplicationViews = ({ isLoggedIn }) => {
                 />
                 <Route path="categories" element={isLoggedIn ? <ListCategories /> : <Navigate to="/login" />} />
                 <Route path="jokes/category/:id" element={isLoggedIn ? <JokeCategory /> : <Navigate to="/login" />} />
+                <Route path="jokes/author/:id" element={isLoggedIn ? <JokeAuthor /> : <Navigate to="/login" />} />
 
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />

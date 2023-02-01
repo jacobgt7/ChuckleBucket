@@ -33,5 +33,16 @@ namespace ChuckleBucket.Controllers
             }
             return Ok(jokes);
         }
+
+        [HttpGet("author/{id}")]
+        public IActionResult GetByAuthor(int id) 
+        {
+            List<Joke> jokes = _jokeRepository.GetJokesByAuthorId(id);
+            if (jokes == null)
+            {
+                return NotFound();
+            }
+            return Ok(jokes);
+        }
     }
 }
