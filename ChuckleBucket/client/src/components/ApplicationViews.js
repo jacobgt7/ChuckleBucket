@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import ListCategories from "./categories/ListCategories";
 import Home from "./jokes/Home";
 import Login from "./Login";
 import Register from "./Register";
@@ -15,6 +16,7 @@ const ApplicationViews = ({ isLoggedIn }) => {
                     index
                     element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
                 />
+                <Route path="categories" element={isLoggedIn ? <ListCategories /> : <Navigate to="/login" />} />
 
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
