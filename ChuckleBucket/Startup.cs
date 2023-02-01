@@ -1,3 +1,4 @@
+using ChuckleBucket.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,6 +52,9 @@ namespace ChuckleBucket
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ChuckleBucket", Version = "v1" });
             });
+
+            services.AddTransient<IJokeRepository, JokeRepository>();
+            services.AddTransient<IUserProfileRepository, UserProfileRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
