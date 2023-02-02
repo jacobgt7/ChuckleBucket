@@ -4,7 +4,7 @@ import { getJokesByAuthor } from "../../modules/jokesManager";
 import ListJokes from "./ListJokes";
 
 
-const JokeAuthor = () => {
+const JokeAuthor = ({ userData }) => {
     const [jokes, setJokes] = useState([])
     const { id } = useParams();
 

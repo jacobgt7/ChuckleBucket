@@ -3,6 +3,7 @@ using ChuckleBucket.Utils;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System;
 
 namespace ChuckleBucket.Repositories
 {
@@ -94,6 +95,31 @@ namespace ChuckleBucket.Repositories
                         }
                         return jokes;
                     }
+                }
+            }
+        }
+
+        public void Add(Joke joke)
+        {
+            using(SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Joke (Text,
+                                                          UserProfileId,
+                                                            CategoryId,
+                                                            DateCreated)
+                                        VALUES (@text,
+                                                @userProfileId,
+                                                @categoryId,
+                                                @dateCreated)";
+                    DbUtils.AddParameter(cmd, "@text", joke.Text);
+                    DbUtils.AddParameter(cmd, "@userProfileId", joke.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@categoryId", joke.CategoryId);
+                    DbUtils.AddParameter(cmd, "@dateCreated", DateTime.Now);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

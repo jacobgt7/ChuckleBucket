@@ -49,3 +49,16 @@ export const getJokesByCurrentUser = () => {
             .then(res => res.json())
     })
 }
+
+export const addJoke = (joke) => {
+    return getToken().then(token => {
+        return fetch(baseUrl, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(joke)
+        })
+    })
+}

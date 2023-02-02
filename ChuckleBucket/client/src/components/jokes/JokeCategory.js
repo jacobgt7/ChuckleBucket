@@ -4,7 +4,7 @@ import { getJokesByCategory } from "../../modules/jokesManager";
 import ListJokes from "./ListJokes";
 
 
-const JokeCategory = () => {
+const JokeCategory = ({ userData }) => {
     const [jokes, setJokes] = useState([])
     const { id } = useParams();
 
