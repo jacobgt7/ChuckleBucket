@@ -3,7 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../modules/authManager";
 
-export default function Login() {
+export default function Login({ setUserData }) {
     let navigate = useNavigate();
 
     const [email, setEmail] = useState();
@@ -12,7 +12,14 @@ export default function Login() {
     const loginSubmit = (e) => {
         e.preventDefault();
         login(email, password)
-            .then(() => navigate("/"))
+            .then((userProfile) => {
+                const userDataObj = {
+                    id: userProfile.id,
+                    userRole: userProfile?.userRole?.name
+                }
+                setUserData(userDataObj)
+                navigate("/")
+            })
             .catch(() => alert("Login Failed"));
     };
 

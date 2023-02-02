@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { register } from "../modules/authManager";
+import { login, register } from "../modules/authManager";
 
-export default function Register() {
+export default function Register({ setUserData }) {
     const navigate = useNavigate();
 
     const [name, setName] = useState();
@@ -17,7 +17,17 @@ export default function Register() {
             alert("Passwords don't match. Do better.");
         } else {
             const userProfile = { name, email };
-            register(userProfile, password).then(() => navigate("/"));
+            register(userProfile, password).then(() => {
+                login(email, password)
+                    .then((userProfile) => {
+                        const userDataObj = {
+                            id: userProfile.id,
+                            userRole: userProfile?.userRole?.name
+                        }
+                        setUserData(userDataObj)
+                        navigate("/")
+                    })
+            });
         }
     };
 

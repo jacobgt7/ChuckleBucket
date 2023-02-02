@@ -8,16 +8,18 @@ import ApplicationViews from './components/ApplicationViews';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [userData, setUserData] = useState({}) //holds id and userRole(string)
 
   useEffect(() => {
     onLoginStatusChange(setIsLoggedIn);
   }, []);
 
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Header isLoggedIn={isLoggedIn} />
-        <ApplicationViews isLoggedIn={isLoggedIn} />
+        <Header isLoggedIn={isLoggedIn} userData={userData} />
+        <ApplicationViews isLoggedIn={isLoggedIn} userData={userData} setUserData={setUserData} />
       </BrowserRouter>
     </div>
   );

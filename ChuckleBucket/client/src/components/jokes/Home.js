@@ -3,7 +3,7 @@ import { getAllJokes } from "../../modules/jokesManager";
 import ListJokes from "./ListJokes";
 
 
-const Home = () => {
+const Home = ({ userData }) => {
     const [jokes, setJokes] = useState([]);
 
     const getJokes = () => {
