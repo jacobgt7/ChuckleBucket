@@ -37,3 +37,15 @@ export const getJokesByAuthor = (id) => {
             .then(res => res.json())
     })
 }
+
+export const getJokesByCurrentUser = () => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/currentUser`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+    })
+}
