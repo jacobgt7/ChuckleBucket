@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Form, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import { getAllCategories } from "../../modules/categoriesManager";
-import { getJokeById, updateJoke } from "../../modules/jokesManager";
+import { deleteJoke, getJokeById, updateJoke } from "../../modules/jokesManager";
 
 
 const EditJoke = ({ userData }) => {
@@ -12,6 +12,7 @@ const EditJoke = ({ userData }) => {
     const [jokeId, setJokeId] = useState(0);
     const [categories, setCategories] = useState([]);
     const [textInvalid, setTextInvalid] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
 
     const { id } = useParams();
 
@@ -54,6 +55,14 @@ const EditJoke = ({ userData }) => {
         }).then(() => { navigate("/jokes/my") })
     }
 
+    const handleDelete = (event) => {
+        event.preventDefault();
+        deleteJoke(jokeId)
+            .then(() => {
+                navigate("/jokes/my")
+            })
+    }
+
     if (userData.id !== authorId) {
         return <h3>Whoops!  You are not authorized to edit this joke.</h3>;
     }
@@ -88,7 +97,13 @@ const EditJoke = ({ userData }) => {
                     </Input>
                 </FormGroup>
                 <Button onClick={handleSubmit}>Submit</Button>
+                {' '}
                 <Button onClick={() => { navigate("/jokes/my") }}>Cancel</Button>
+                {' '}
+                {confirmDelete ? <>Delete? <Button onClick={handleDelete} color="danger">Yes</Button>
+                    <Button onClick={() => { setConfirmDelete(false) }}>No</Button></>
+                    : <Button color="danger" onClick={() => { setConfirmDelete(true) }}>Delete</Button>}
+
             </Form>
         </>
     )
