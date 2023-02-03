@@ -87,3 +87,14 @@ export const updateJoke = (id, joke) => {
         })
     })
 }
+
+export const deleteJoke = (id) => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    })
+}

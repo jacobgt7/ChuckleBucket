@@ -94,6 +94,14 @@ namespace ChuckleBucket.Controllers
             return NoContent();
         }
 
+        [Authorize]
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _jokeRepository.Remove(id);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

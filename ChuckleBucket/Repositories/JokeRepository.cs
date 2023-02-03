@@ -172,6 +172,22 @@ namespace ChuckleBucket.Repositories
             }
         }
 
+        public void Remove(int id)
+        {
+            using(SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Joke
+                                        WHERE Id = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public Joke NewJokeFromReader(SqlDataReader reader)
         {
             return new Joke
