@@ -22,7 +22,7 @@ const JokeCategory = ({ userData }) => {
     return (
         <>
             <h1>{jokes[0]?.category?.name} Jokes</h1>
-            <ListJokes jokes={jokes} />
+            <ListJokes jokes={jokes} userData={userData} />
         </>
     )
 }

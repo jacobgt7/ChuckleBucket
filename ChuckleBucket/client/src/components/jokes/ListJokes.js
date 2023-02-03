@@ -1,12 +1,12 @@
 import JokeCard from "./JokeCard";
 
 
-const ListJokes = ({ jokes }) => {
+const ListJokes = ({ jokes, userData }) => {
 
 
     return (
         <div className="card-container">
-            {jokes.map(joke => <JokeCard key={joke.id} joke={joke} />)}
+            {jokes.map(joke => <JokeCard key={joke.id} joke={joke} userData={userData} />)}
         </div>
     )
 }

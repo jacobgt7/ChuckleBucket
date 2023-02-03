@@ -20,7 +20,7 @@ const Home = ({ userData }) => {
     return (
         <>
             <h1>Fresh Jokes</h1>
-            <ListJokes jokes={jokes} />
+            <ListJokes jokes={jokes} userData={userData} />
         </>
     )
 }

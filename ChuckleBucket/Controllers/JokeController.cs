@@ -27,6 +27,17 @@ namespace ChuckleBucket.Controllers
             return Ok(_jokeRepository.GetAllJokes());
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            Joke joke = _jokeRepository.GetById(id);
+            if (joke == null)
+            {
+                return NotFound();
+            }
+            return Ok(joke);
+        }
+
         [HttpGet("category/{id}")]
         public IActionResult Get(int id)
         {
@@ -67,6 +78,19 @@ namespace ChuckleBucket.Controllers
         public IActionResult Post(Joke joke) 
         {
             _jokeRepository.Add(joke);
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public IActionResult Put(int id,Joke joke)
+        {
+            if (id != joke.Id)
+            {
+                return BadRequest();
+            }
+
+            _jokeRepository.Update(joke);
             return NoContent();
         }
 

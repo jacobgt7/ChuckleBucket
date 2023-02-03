@@ -39,6 +39,34 @@ namespace ChuckleBucket.Repositories
             }
         }
 
+        public Joke GetById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated,
+                                                up.DisplayName, c.Name AS CategoryName
+                                        FROM Joke j
+                                        JOIN UserProfile up ON j.UserProfileId = up.Id
+                                        JOIN Category c ON j.CategoryId = c.Id
+                                        WHERE j.Id = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    using(SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        Joke joke = null;
+                        if (reader.Read())
+                        {
+                            joke = NewJokeFromReader(reader);
+                        }
+                        return joke;
+                    }
+                }
+            }
+        }
+
         public List<Joke> GetJokesByCategoryId(int categoryId) 
         {
             using(SqlConnection conn = Connection)
@@ -118,6 +146,26 @@ namespace ChuckleBucket.Repositories
                     DbUtils.AddParameter(cmd, "@userProfileId", joke.UserProfileId);
                     DbUtils.AddParameter(cmd, "@categoryId", joke.CategoryId);
                     DbUtils.AddParameter(cmd, "@dateCreated", DateTime.Now);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Update(Joke joke)
+        {
+            using(SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Joke
+                                        SET Text = @text,
+                                            CategoryId = @categoryId
+                                        WHERE Id = @id";
+                    DbUtils.AddParameter(cmd, "@text", joke.Text);
+                    DbUtils.AddParameter(cmd, "@categoryId", joke.CategoryId);
+                    DbUtils.AddParameter(cmd, "@id", joke.Id);
 
                     cmd.ExecuteNonQuery();
                 }
