@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import { Button, Card, CardBody, CardHeader, CardSubtitle, CardText, CardTitle } from "reactstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle } from "reactstrap";
 import "./jokes.css";
 
-const JokeCard = ({ joke }) => {
-
+const JokeCard = ({ joke, userData }) => {
+    const navigate = useNavigate();
 
     return (
         <Card className="joke-card">
@@ -17,9 +17,15 @@ const JokeCard = ({ joke }) => {
                 <CardText>
                     By <Link to={`/jokes/author/${joke.userProfileId}`} >{joke.userProfile.displayName}</Link>
                 </CardText>
+
                 <Button>
                     Laugh
                 </Button>
+
+                {joke.userProfileId === userData.id &&
+                    <div>
+                        <Button onClick={() => { navigate(`/jokes/edit/${joke.id}`) }}>Edit</Button>
+                    </div>}
             </CardBody>
         </Card>
     )
