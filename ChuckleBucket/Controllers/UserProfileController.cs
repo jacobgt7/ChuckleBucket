@@ -1,4 +1,6 @@
-﻿using ChuckleBucket.Repositories;
+﻿using ChuckleBucket.Models;
+using ChuckleBucket.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,5 +29,18 @@ namespace ChuckleBucket.Controllers
 
             return Ok(userProfile);
         }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            UserProfile userProfile = _userProfileRepository.GetById(id);
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+            return Ok(userProfile);
+        }
+        
     }
 }
