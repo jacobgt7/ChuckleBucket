@@ -86,6 +86,29 @@ export const addLaugh = (jokeId) => {
     })
 }
 
+export const getUserLaughs = () => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/laugh`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+    })
+}
+
+export const removeLaugh = (jokeId) => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/laugh/${jokeId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    })
+}
+
 export const updateJoke = (id, joke) => {
     return getToken().then(token => {
         return fetch(`${baseUrl}/${id}`, {
