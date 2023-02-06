@@ -19,10 +19,12 @@ namespace ChuckleBucket.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated,
-                                                up.DisplayName, c.Name AS CategoryName
+                                                up.DisplayName, c.Name AS CategoryName, COUNT(l.Id) AS LaughCount
                                         FROM Joke j
                                         JOIN UserProfile up ON j.UserProfileId = up.Id
                                         JOIN Category c ON j.CategoryId = c.Id
+                                        LEFT JOIN Laugh l ON l.JokeId = j.Id
+                                        GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, c.Name
                                         ORDER BY j.DateCreated DESC";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -47,11 +49,13 @@ namespace ChuckleBucket.Repositories
                 using(SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated,
-                                                up.DisplayName, c.Name AS CategoryName
+                                                up.DisplayName, c.Name AS CategoryName, COUNT(l.Id) AS LaughCount
                                         FROM Joke j
                                         JOIN UserProfile up ON j.UserProfileId = up.Id
                                         JOIN Category c ON j.CategoryId = c.Id
-                                        WHERE j.Id = @id";
+                                        LEFT JOIN Laugh l ON l.JokeId = j.Id
+                                        WHERE j.Id = @id
+                                        GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, c.Name";
                     DbUtils.AddParameter(cmd, "@id", id);
 
                     using(SqlDataReader reader = cmd.ExecuteReader())
@@ -75,11 +79,13 @@ namespace ChuckleBucket.Repositories
                 using(SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated,
-                                                up.DisplayName, c.Name AS CategoryName
+                                                up.DisplayName, c.Name AS CategoryName, COUNT(l.Id) AS LaughCount
                                         FROM Joke j
                                         JOIN UserProfile up ON j.UserProfileId = up.Id
                                         JOIN Category c ON j.CategoryId = c.Id
+                                        LEFT JOIN Laugh l ON l.JokeId = j.Id
                                         WHERE j.CategoryId = @categoryId
+                                        GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, c.Name
                                         ORDER BY j.DateCreated DESC";
                     DbUtils.AddParameter(cmd, "@categoryId", categoryId);
 
@@ -105,11 +111,13 @@ namespace ChuckleBucket.Repositories
                 using(SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated,
-                                                up.DisplayName, c.Name AS CategoryName
+                                                up.DisplayName, c.Name AS CategoryName, COUNT(l.Id) AS LaughCount
                                         FROM Joke j
                                         JOIN UserProfile up ON j.UserProfileId = up.Id
                                         JOIN Category c ON j.CategoryId = c.Id
+                                        LEFT JOIN Laugh l ON l.JokeId = j.Id
                                         WHERE j.UserProfileId = @authorId
+                                        GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, c.Name
                                         ORDER BY j.DateCreated DESC";
                     DbUtils.AddParameter(cmd, "@authorId", authorId);
 
@@ -188,6 +196,23 @@ namespace ChuckleBucket.Repositories
             }
         }
 
+        public void AddLaugh(int jokeId, int userId) 
+        {
+            using(SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Laugh (JokeId, UserProfileId)
+                                        VALUES (@jokeId, @userProfileId)";
+                    DbUtils.AddParameter(cmd, "@jokeId", jokeId);
+                    DbUtils.AddParameter(cmd, "@userProfileId", userId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public Joke NewJokeFromReader(SqlDataReader reader)
         {
             return new Joke
@@ -204,7 +229,8 @@ namespace ChuckleBucket.Repositories
                 {
                     Name = DbUtils.GetString(reader, "CategoryName"),
                 },
-                DateCreated = DbUtils.GetDateTime(reader, "DateCreated")
+                DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
+                LaughCount = DbUtils.GetInt(reader, "LaughCount")
             };
         }
     }
