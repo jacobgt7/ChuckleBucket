@@ -75,6 +75,17 @@ export const addJoke = (joke) => {
     })
 }
 
+export const addLaugh = (jokeId) => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/laugh/${jokeId}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    })
+}
+
 export const updateJoke = (id, joke) => {
     return getToken().then(token => {
         return fetch(`${baseUrl}/${id}`, {

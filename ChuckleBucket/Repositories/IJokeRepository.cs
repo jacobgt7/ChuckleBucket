@@ -12,5 +12,6 @@ namespace ChuckleBucket.Repositories
         void Add(Joke joke);
         void Update(Joke joke);
         void Remove(int id);
+        void AddLaugh(int jokeId, int userId);
     }
 }

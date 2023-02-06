@@ -102,6 +102,15 @@ namespace ChuckleBucket.Controllers
             return NoContent();
         }
 
+        [Authorize]
+        [HttpPost("laugh/{jokeId}")]
+        public IActionResult PostLaugh(int jokeId)
+        {
+            UserProfile currentUser = GetCurrentUserProfile();
+            _jokeRepository.AddLaugh(jokeId, currentUser.Id);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

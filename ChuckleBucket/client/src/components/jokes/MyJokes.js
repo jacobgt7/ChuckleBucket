@@ -25,7 +25,7 @@ const MyJokes = ({ userData }) => {
         <>
             <h1>My Jokes</h1>
             <Button onClick={() => { navigate("/jokes/new") }}>Create New</Button>
-            <ListJokes jokes={jokes} userData={userData} />
+            <ListJokes jokes={jokes} userData={userData} getJokes={getJokes} />
         </>
     )
 }
