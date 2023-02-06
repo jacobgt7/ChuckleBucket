@@ -208,6 +208,60 @@ namespace ChuckleBucket.Repositories
                     DbUtils.AddParameter(cmd, "@jokeId", jokeId);
                     DbUtils.AddParameter(cmd, "@userProfileId", userId);
 
+                    try 
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+
+        public List<Laugh> GetLaughsByUserId(int userId)
+        {
+            using(SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, JokeId, UserProfileId
+                                        FROM Laugh
+                                        WHERE UserProfileId = @userId";
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+
+                    using(SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<Laugh> laughs = new List<Laugh>();
+                        while (reader.Read())
+                        {
+                            laughs.Add(new Laugh
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                JokeId = DbUtils.GetInt(reader, "JokeId"),
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+                            });
+                        }
+                        return laughs;
+                    }
+                }
+            }
+        }
+
+        public void RemoveLaugh(int jokeId, int userId)
+        {
+            using(SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Laugh
+                                        WHERE JokeId = @jokeId AND UserProfileId = @userId";
+                    DbUtils.AddParameter(cmd, "@jokeId", jokeId);
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+
                     cmd.ExecuteNonQuery();
                 }
             }

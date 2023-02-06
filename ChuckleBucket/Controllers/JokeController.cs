@@ -111,6 +111,23 @@ namespace ChuckleBucket.Controllers
             return NoContent();
         }
 
+        [Authorize]
+        [HttpGet("laugh")]
+        public IActionResult GetUserLaughs()
+        {
+            UserProfile currentUser = GetCurrentUserProfile();
+            return Ok(_jokeRepository.GetLaughsByUserId(currentUser.Id));
+        }
+
+        [Authorize]
+        [HttpDelete("laugh/{jokeId}")]
+        public IActionResult DeleteLaugh(int jokeId)
+        {
+            UserProfile currentUser = GetCurrentUserProfile();
+            _jokeRepository.RemoveLaugh(jokeId, currentUser.Id);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
