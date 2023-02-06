@@ -13,3 +13,28 @@ export const getUserById = (id) => {
             .then(res => res.json())
     })
 }
+
+export const getAllDisplayNames = () => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/allDisplayNames`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+    })
+}
+
+export const updateUser = (id, userProfile) => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/${id}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userProfile)
+        })
+    })
+}

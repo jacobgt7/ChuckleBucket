@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { Table } from "reactstrap";
+import { useNavigate } from "react-router-dom";
+import { Button, Table } from "reactstrap";
 import { getUserById } from "../../modules/userProfileManager";
 import "./userProfiles.css";
 
 
 const MyProfile = ({ userData }) => {
     const [userProfile, setUserProfile] = useState({});
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         getUserById(userData.id)
@@ -37,6 +40,7 @@ const MyProfile = ({ userData }) => {
                         </tr>
                     </tbody>
                 </Table>
+                <Button onClick={() => { navigate("/profile/edit") }}>Edit</Button>
             </div>
         </>
     )

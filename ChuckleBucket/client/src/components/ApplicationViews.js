@@ -9,6 +9,7 @@ import JokeForm from "./jokes/JokeForm";
 import MyJokes from "./jokes/MyJokes";
 import Login from "./Login";
 import Register from "./Register";
+import EditProfile from "./userProfiles/EditProfile";
 import MyProfile from "./userProfiles/MyProfile";
 
 
@@ -32,6 +33,7 @@ const ApplicationViews = ({ isLoggedIn, setUserData, userData }) => {
                 <Route path="jokes/edit/:id" element={isLoggedIn ? <EditJoke userData={userData} /> : <Navigate to="/login" />} />
 
                 <Route path="profile" element={isLoggedIn ? <MyProfile userData={userData} /> : <Navigate to="/login" />} />
+                <Route path="profile/edit" element={isLoggedIn ? <EditProfile userData={userData} /> : <Navigate to="/login" />} />
 
                 <Route path="login" element={<Login setUserData={setUserData} />} />
                 <Route path="register" element={<Register setUserData={setUserData} />} />

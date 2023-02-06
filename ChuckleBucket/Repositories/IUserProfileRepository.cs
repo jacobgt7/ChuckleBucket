@@ -1,4 +1,5 @@
 ﻿using ChuckleBucket.Models;
+using System.Collections.Generic;
 
 namespace ChuckleBucket.Repositories
 {
@@ -6,5 +7,7 @@ namespace ChuckleBucket.Repositories
     {
         UserProfile GetByFirebaseUserId(string firebaseUserId);
         UserProfile GetById(int id);
+        void Update(UserProfile userProfile);
+        List<UserProfile> GetAllUsers();
     }
 }
