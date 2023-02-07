@@ -38,7 +38,7 @@ const ApplicationViews = ({ isLoggedIn, setUserData, userData }) => {
                 <Route path="profile/edit" element={isLoggedIn ? <EditProfile userData={userData} /> : <Navigate to="/login" />} />
 
                 <Route path="login" element={<Login setUserData={setUserData} />} />
-                <Route path="register" element={<Register setUserData={setUserData} />} />
+                <Route path="login/register" element={<Register setUserData={setUserData} />} />
                 <Route path="*" element={<p>Whoops, nothing here...</p>} />
             </Route>
         </Routes>

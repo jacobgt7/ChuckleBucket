@@ -9,5 +9,6 @@ namespace ChuckleBucket.Repositories
         UserProfile GetById(int id);
         void Update(UserProfile userProfile);
         List<UserProfile> GetAllUsers();
+        void Add(UserProfile userProfile);
     }
 }
