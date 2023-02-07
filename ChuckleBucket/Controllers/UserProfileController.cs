@@ -56,6 +56,13 @@ namespace ChuckleBucket.Controllers
             return Ok(displayNames);
         }
 
+        [HttpPost]
+        public IActionResult Post(UserProfile userProfile)
+        {
+            _userProfileRepository.Add(userProfile);
+            return NoContent();
+        }
+
         [Authorize]
         [HttpPut("{id}")]
         public IActionResult Put(int id, UserProfile userProfile)

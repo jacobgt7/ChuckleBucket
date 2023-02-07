@@ -94,6 +94,39 @@ namespace ChuckleBucket.Repositories
             }
         }
 
+        public void Add(UserProfile userProfile)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId,
+                                                                DisplayName,
+                                                                FirstName,
+                                                                LastName,
+                                                                Email,
+                                                                ImageLocation,
+                                                                UserRoleId)
+                                        VALUES (@firebaseId,
+                                                @displayName,
+                                                @firstName,
+                                                @lastName,
+                                                @email,
+                                                @imageLocation,
+                                                2)";
+                    DbUtils.AddParameter(cmd, "@firebaseId", userProfile.FirebaseUserId);
+                    DbUtils.AddParameter(cmd, "@displayName", userProfile.DisplayName);
+                    DbUtils.AddParameter(cmd, "@firstName", userProfile.FirstName);
+                    DbUtils.AddParameter(cmd, "@lastName", userProfile.LastName);
+                    DbUtils.AddParameter(cmd, "@email", userProfile.Email);
+                    DbUtils.AddParameter(cmd, "@imageLocation", userProfile.ImageLocation);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void Update(UserProfile userProfile)
         {
             using (SqlConnection conn = Connection)
