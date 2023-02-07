@@ -15,7 +15,7 @@ const MyProfile = ({ userData }) => {
             .then(profileData => {
                 setUserProfile(profileData);
             })
-    }, [])
+    }, [userData])
 
     return (
         <>

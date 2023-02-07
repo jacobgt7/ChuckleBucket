@@ -12,7 +12,8 @@ function App() {
   const [userData, setUserData] = useState({}) //holds id and userRole(string)
 
   useEffect(() => {
-    onLoginStatusChange(setIsLoggedIn);
+    onLoginStatusChange(setIsLoggedIn, setUserData);
+
   }, []);
 
   if (isLoggedIn === null) {
