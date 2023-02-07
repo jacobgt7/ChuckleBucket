@@ -15,5 +15,6 @@ namespace ChuckleBucket.Repositories
         void AddLaugh(int jokeId, int userId);
         List<Laugh> GetLaughsByUserId(int userId);
         void RemoveLaugh(int jokeId, int userId);
+        List<Joke> GetFavoriteJokes(int userId);
     }
 }

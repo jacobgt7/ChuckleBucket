@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import ListCategories from "./categories/ListCategories";
 import EditJoke from "./jokes/EditJoke";
+import Favorites from "./jokes/Favorites";
 import Home from "./jokes/Home";
 import JokeAuthor from "./jokes/JokeAuthor";
 import JokeCategory from "./jokes/JokeCategory";
@@ -31,6 +32,7 @@ const ApplicationViews = ({ isLoggedIn, setUserData, userData }) => {
                 <Route path="jokes/my" element={isLoggedIn ? <MyJokes userData={userData} /> : <Navigate to="/login" />} />
                 <Route path="jokes/new" element={isLoggedIn ? <JokeForm userData={userData} /> : <Navigate to="/login" />} />
                 <Route path="jokes/edit/:id" element={isLoggedIn ? <EditJoke userData={userData} /> : <Navigate to="/login" />} />
+                <Route path="jokes/favorite" element={isLoggedIn ? <Favorites userData={userData} /> : <Navigate to="/login" />} />
 
                 <Route path="profile" element={isLoggedIn ? <MyProfile userData={userData} /> : <Navigate to="/login" />} />
                 <Route path="profile/edit" element={isLoggedIn ? <EditProfile userData={userData} /> : <Navigate to="/login" />} />

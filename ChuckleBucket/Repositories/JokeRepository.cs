@@ -135,6 +135,37 @@ namespace ChuckleBucket.Repositories
             }
         }
 
+        public List<Joke> GetFavoriteJokes(int userId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated,
+                                                up.DisplayName, c.Name AS CategoryName, COUNT(l.Id) AS LaughCount
+                                        FROM Joke j
+                                        JOIN UserProfile up ON j.UserProfileId = up.Id
+                                        JOIN Category c ON j.CategoryId = c.Id
+                                        JOIN Laugh l ON l.JokeId = j.Id
+                                        WHERE l.UserProfileId = @userId
+                                        GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, c.Name
+                                        ORDER BY j.DateCreated DESC";
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        var jokes = new List<Joke>();
+                        while (reader.Read())
+                        {
+                            jokes.Add(NewJokeFromReader(reader));
+                        }
+                        return jokes;
+                    }
+                }
+            }
+        }
+
         public void Add(Joke joke)
         {
             using(SqlConnection conn = Connection)
