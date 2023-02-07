@@ -62,6 +62,18 @@ export const getJokesByCurrentUser = () => {
     })
 }
 
+export const getFavoriteJokes = () => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/favorites`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+    })
+}
+
 export const addJoke = (joke) => {
     return getToken().then(token => {
         return fetch(baseUrl, {

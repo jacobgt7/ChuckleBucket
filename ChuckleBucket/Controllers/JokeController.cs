@@ -66,10 +66,15 @@ namespace ChuckleBucket.Controllers
         {
             UserProfile currentUser = GetCurrentUserProfile();
             List<Joke> jokes = _jokeRepository.GetJokesByAuthorId(currentUser.Id);
-            if (jokes == null)
-            {
-                return NotFound();
-            }
+            return Ok(jokes);
+        }
+
+        [Authorize]
+        [HttpGet("favorites")]
+        public IActionResult GetFavorites()
+        {
+            UserProfile currentUser = GetCurrentUserProfile();
+            List<Joke> jokes = _jokeRepository.GetFavoriteJokes(currentUser.Id);
             return Ok(jokes);
         }
 
