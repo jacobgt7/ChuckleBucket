@@ -5,6 +5,7 @@ import { onLoginStatusChange } from './modules/authManager';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
 import ApplicationViews from './components/ApplicationViews';
+import { Spinner } from 'reactstrap';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -14,6 +15,10 @@ function App() {
     onLoginStatusChange(setIsLoggedIn);
   }, []);
 
+  if (isLoggedIn === null) {
+    // Until we know whether or not the user is logged in or not, just show a spinner
+    return <Spinner className="app-spinner dark" />;
+  }
 
   return (
     <div className="App">
