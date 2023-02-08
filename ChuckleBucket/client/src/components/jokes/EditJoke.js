@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button, Form, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import { getAllCategories } from "../../modules/categoriesManager";
 import { deleteJoke, getJokeById, updateJoke } from "../../modules/jokesManager";
+import "../forms.css";
 
 
 const EditJoke = ({ userData }) => {
@@ -70,7 +71,7 @@ const EditJoke = ({ userData }) => {
     return (
         <>
             <h1>Edit Joke</h1>
-            <Form>
+            <Form className="side-margins">
                 <FormGroup>
                     <Label for="jokeTextInput">Joke Text</Label>
                     <Input type="textarea"

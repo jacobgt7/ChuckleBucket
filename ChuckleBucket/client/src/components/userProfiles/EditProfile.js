@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import { getAllDisplayNames, getUserById, updateUser } from "../../modules/userProfileManager";
+import "../forms.css";
 
 
 const EditProfile = ({ userData }) => {
@@ -41,7 +42,7 @@ const EditProfile = ({ userData }) => {
     useEffect(() => {
         getUserProfile();
         getDisplayNames();
-    }, [])
+    }, [userData])
 
     const handleDisplayNameInput = (event) => {
         setDisplayNameInvalid(false);
@@ -95,8 +96,8 @@ const EditProfile = ({ userData }) => {
     return (
         <>
             <h1>Edit Profile</h1>
-            <Form>
-                <FormGroup>
+            <Form className="side-margins">
+                <FormGroup >
                     <Label for="displayNameInput">Display Name</Label>
                     <Input id="displayNameInput"
                         name="displayName"
@@ -131,6 +132,7 @@ const EditProfile = ({ userData }) => {
                         onChange={handleImageLocationInput}></Input>
                 </FormGroup>
                 <Button onClick={handleSave}>Save</Button>
+                {" "}
                 <Button onClick={() => { navigate("/profile") }}>Cancel</Button>
             </Form>
         </>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../modules/authManager";
+import "../App.css";
 
 export default function Login({ setUserData }) {
     let navigate = useNavigate();
@@ -24,32 +25,35 @@ export default function Login({ setUserData }) {
     };
 
     return (
-        <Form onSubmit={loginSubmit}>
-            <fieldset>
-                <FormGroup>
-                    <Label for="email">Email</Label>
-                    <Input
-                        id="email"
-                        type="text"
-                        autoFocus
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="password">Password</Label>
-                    <Input
-                        id="password"
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Button>Login</Button>
-                </FormGroup>
-                <em>
-                    Not registered? <Link to="register">Register</Link>
-                </em>
-            </fieldset>
-        </Form>
+        <>
+            <h1 className="App-brand">Chuckle Bucket</h1>
+            <Form onSubmit={loginSubmit} className="side-margins">
+                <fieldset>
+                    <FormGroup>
+                        <Label for="email">Email</Label>
+                        <Input
+                            id="email"
+                            type="text"
+                            autoFocus
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="password">Password</Label>
+                        <Input
+                            id="password"
+                            type="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Button>Login</Button>
+                    </FormGroup>
+                    <em>
+                        Not registered? <Link to="register">Register</Link>
+                    </em>
+                </fieldset>
+            </Form>
+        </>
     );
 }

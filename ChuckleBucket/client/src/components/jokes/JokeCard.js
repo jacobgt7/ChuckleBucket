@@ -57,7 +57,7 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
                     </Button>}
 
                 {joke.userProfileId === userData.id &&
-                    <div>
+                    <div className="margin-top">
                         <Button onClick={() => { navigate(`/jokes/edit/${joke.id}`) }}>Edit</Button>
                     </div>}
             </CardBody>

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Badge } from "reactstrap";
 import { getAllCategories } from "../../modules/categoriesManager";
 import "./categories.css"
 
 
 const ListCategories = () => {
     const [categories, setCategories] = useState([]);
+
+    const navigate = useNavigate();
 
     const getCategories = () => {
         getAllCategories()
@@ -21,13 +24,13 @@ const ListCategories = () => {
     return (
         <>
             <h1>Categories</h1>
-            <ul className="categories-list">
+            <div className="categories-list">
                 {categories.map(category => {
-                    return <li className="category" key={category.id}>
-                        <Link to={`/jokes/category/${category.id}`}>{category.name}</Link>
-                    </li>
+                    return <Badge pill color="light" className="side-margins margin-top" key={category.id}>
+                        <Link to={`/jokes/category/${category.id}`}><h4>{category.name}</h4></Link>
+                    </Badge>
                 })}
-            </ul>
+            </div>
         </>
     )
 }

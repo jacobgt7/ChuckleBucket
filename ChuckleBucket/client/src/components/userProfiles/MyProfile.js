@@ -20,7 +20,7 @@ const MyProfile = ({ userData }) => {
     return (
         <>
             <h1>My Profile</h1>
-            <div className="myProfileContainer">
+            <div className="myProfileContainer side-margins">
                 <img className="profileImg img-thumbnail" src={userProfile.imageLocation ? userProfile.imageLocation
                     : "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"}
                     alt="Profile picture"></img>

@@ -8,3 +8,7 @@
     flex-wrap: wrap !important;
     justify-content: center !important;
 }
+
+.margin-top {
+    margin-top: 0.5rem;
+}
