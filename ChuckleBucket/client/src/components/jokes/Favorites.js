@@ -21,7 +21,7 @@ const Favorites = ({ userData }) => {
     return (
         <>
             <h1>My Favorites</h1>
-            <ListJokes jokes={jokes} userData={userData} getJokes={getJokes} />
+            <ListJokes jokes={jokes} userData={userData} getJokes={getJokes} setJokes={setJokes} />
         </>
     )
 }
