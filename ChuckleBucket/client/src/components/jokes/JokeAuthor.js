@@ -22,7 +22,7 @@ const JokeAuthor = ({ userData }) => {
     return (
         <>
             <h1>{jokes[0]?.userProfile?.displayName}'s Jokes</h1>
-            <ListJokes jokes={jokes} userData={userData} getJokes={getJokes} />
+            <ListJokes jokes={jokes} userData={userData} getJokes={getJokes} setJokes={setJokes} />
         </>
     )
 }

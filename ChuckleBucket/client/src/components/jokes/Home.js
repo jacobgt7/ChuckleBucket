@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Button } from "reactstrap";
 import { getAllJokes } from "../../modules/jokesManager";
 import ListJokes from "./ListJokes";
 
@@ -20,7 +21,7 @@ const Home = ({ userData }) => {
     return (
         <>
             <h1>Fresh Jokes</h1>
-            <ListJokes jokes={jokes} userData={userData} getJokes={getJokes} />
+            <ListJokes jokes={jokes} userData={userData} getJokes={getJokes} setJokes={setJokes} />
         </>
     )
 }

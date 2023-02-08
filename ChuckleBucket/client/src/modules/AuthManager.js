@@ -101,7 +101,6 @@ export const onLoginStatusChange = (onLoginStatusChangedHandler, setUserData) =>
             onLoginStatusChangedHandler(!!user);
             _doesUserExist(user.uid)
                 .then(userProfileData => {
-                    console.log(userProfileData)
                     setUserData({
                         id: userProfileData.id,
                         userRole: userProfileData?.userRole?.name
