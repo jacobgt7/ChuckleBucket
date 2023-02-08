@@ -10,6 +10,7 @@ import {
     NavLink,
 } from "reactstrap";
 import { logout } from "../modules/authManager";
+import "../App.css";
 
 export default function Header({ isLoggedIn }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function Header({ isLoggedIn }) {
     return (
         <div>
             <Navbar color="dark" dark expand="md">
-                <NavbarBrand tag={RRNavLink} to="/">
+                <NavbarBrand className="App-brand" tag={RRNavLink} to="/">
                     Chuckle Bucket
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle} />

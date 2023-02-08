@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { login, register } from "../modules/authManager";
+import "./forms.css";
 
 export default function Register({ setUserData }) {
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function Register({ setUserData }) {
     };
 
     return (
-        <Form onSubmit={registerClick}>
+        <Form onSubmit={registerClick} className="side-margins">
             <fieldset>
                 <FormGroup>
                     <Label htmlFor="firstName">First Name</Label>

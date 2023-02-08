@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import { getAllCategories } from "../../modules/categoriesManager";
 import { addJoke } from "../../modules/jokesManager";
+import "../forms.css";
 
 
 const JokeForm = ({ userData }) => {
@@ -51,7 +52,7 @@ const JokeForm = ({ userData }) => {
     return (
         <>
             <h1>Create a New Joke</h1>
-            <Form>
+            <Form className="side-margins">
                 <FormGroup>
                     <Label for="jokeTextInput">Joke Text</Label>
                     <Input type="textarea"
@@ -82,6 +83,7 @@ const JokeForm = ({ userData }) => {
                     </FormFeedback>
                 </FormGroup>
                 <Button onClick={handleSubmit}>Submit</Button>
+                {" "}
                 <Button onClick={() => { navigate("/jokes/my") }}>Cancel</Button>
             </Form>
         </>

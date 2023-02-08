@@ -102,7 +102,10 @@ export const onLoginStatusChange = (onLoginStatusChangedHandler, setUserData) =>
             _doesUserExist(user.uid)
                 .then(userProfileData => {
                     console.log(userProfileData)
-                    setUserData(userProfileData)
+                    setUserData({
+                        id: userProfileData.id,
+                        userRole: userProfileData?.userRole?.name
+                    })
                 })
             firebase.auth().onAuthStateChanged(function logoutCheck(user) {
                 if (!user) {
