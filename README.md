@@ -93,6 +93,10 @@ Chuckle Bucket was developed by me (Jacob Thomas) as a school project.
 
 ERD
 ![](/ChuckleBucket.png)
+***Please note that the Tag and JokeTag tables, as well as the UserRole table and
+Activated property on UserProfile were all included for future development
+purposes.
+
 
 The front end was developed using React and React-router-dom, with Reactstrap for 
 styling. The Login and Register components as well as the authManager module were
