@@ -45,7 +45,7 @@ export const login = (email, pw) => {
 
                 // If we couldn't find the user in our app's database, we should logout of firebase
                 logout();
-                return doesUserExist;
+                //return doesUserExist;
 
                 throw new Error("Something's wrong. The user exists in firebase, but not in the application database.");
             } else {
@@ -99,13 +99,15 @@ export const onLoginStatusChange = (onLoginStatusChangedHandler, setUserData) =>
         firebase.auth().onAuthStateChanged(function initialLoadLoginCheck(user) {
             unsubscribeFromInitialLoginCheck();
             onLoginStatusChangedHandler(!!user);
-            _doesUserExist(user.uid)
-                .then(userProfileData => {
-                    setUserData({
-                        id: userProfileData.id,
-                        userRole: userProfileData?.userRole?.name
+            if (user) {
+                _doesUserExist(user.uid)
+                    .then(userProfileData => {
+                        setUserData({
+                            id: userProfileData.id,
+                            userRole: userProfileData?.userRole?.name
+                        })
                     })
-                })
+            }
             firebase.auth().onAuthStateChanged(function logoutCheck(user) {
                 if (!user) {
                     onLoginStatusChangedHandler(false);
