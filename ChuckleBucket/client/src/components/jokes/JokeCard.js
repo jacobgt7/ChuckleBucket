@@ -46,7 +46,9 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
                     {joke.text}
                 </CardText>
                 <CardText>
-                    By <Link to={`/jokes/author/${joke.userProfileId}`} >{joke.userProfile.displayName}</Link>
+                    By <Link to={`/jokes/author/${joke.userProfileId}`} >{joke.userProfile.displayName}
+                        <img className="img-tiny" src={joke?.userProfile?.imageLocation ? joke?.userProfile?.imageLocation
+                            : "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"} /></Link>
                 </CardText>
 
                 {laughed ? <Button color="info"
