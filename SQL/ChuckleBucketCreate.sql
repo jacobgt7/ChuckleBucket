@@ -22,7 +22,7 @@ GO
 
 CREATE TABLE [Joke] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
-  [Text] nvarchar(255) NOT NULL,
+  [Text] nvarchar(4000) NOT NULL,
   [UserProfileId] int NOT NULL,
   [CategoryId] int NOT NULL,
   [DateCreated] datetime NOT NULL

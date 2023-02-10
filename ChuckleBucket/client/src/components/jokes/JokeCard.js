@@ -42,7 +42,7 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
                 <Link to={`/jokes/category/${joke.categoryId}`}>{joke.category.name}</Link>
             </CardHeader>
             <CardBody>
-                <CardText>
+                <CardText className="joke-card--text overflow-auto">
                     {joke.text}
                 </CardText>
                 <CardText>
@@ -51,6 +51,8 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
                             : "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"} /></Link>
                 </CardText>
 
+            </CardBody>
+            <CardFooter className="joke-card--footer">
                 {laughed ? <Button color="info"
                     onClick={handleUnlaugh}>
                     Laughed {`(${joke.laughCount})`}</Button>
@@ -62,7 +64,8 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
                     <div className="margin-top">
                         <Button onClick={() => { navigate(`/jokes/edit/${joke.id}`) }}>Edit</Button>
                     </div>}
-            </CardBody>
+
+            </CardFooter>
         </Card>
     )
 }
