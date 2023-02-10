@@ -3,6 +3,15 @@
     width: 18rem !important;
 }
 
+.joke-card--text {
+    text-align: left;
+    height: 110px;
+}
+
+.joke-card--footer {
+    height: 100px;
+}
+
 .card-container {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -37,4 +46,8 @@
     width: 30px;
     height: 30px;
     margin: 4px;
+}
+
+.overflow-auto {
+    overflow: auto;
 }
