@@ -5,10 +5,8 @@ import JokeCard from "./JokeCard";
 import SearchInput from "./SearchInput";
 
 
-const ListJokes = ({ jokes, userData, getJokes, setJokes }) => {
+const ListJokes = ({ jokes, userData, getJokes, setJokes, setSortByLaughs, sortByLaughs, setSearchTerms }) => {
     const [userLaughs, setUserLaughs] = useState([]);
-    const [sortByLaughs, setSortByLaughs] = useState(false);
-    const [searchTerms, setSearchTerms] = useState("%%");
 
 
     const getLaughs = () => {
@@ -22,21 +20,16 @@ const ListJokes = ({ jokes, userData, getJokes, setJokes }) => {
         getLaughs();
     }, []);
 
-    useEffect(() => {
-        getJokes(searchTerms)
-            .then(() => {
-                if (sortByLaughs) {
-                    let jokesCopy = structuredClone(jokes)
-                    jokesCopy.sort((a, b) => b.laughCount - a.laughCount)
-                    setJokes(jokesCopy)
-                }
-            }
-
-            )
-        // else {
-        //     getJokes(searchTerms)
-        // }
-    }, [sortByLaughs, searchTerms])
+    // useEffect(() => {
+    //     getJokes(searchTerms)
+    //         .then(() => {
+    //             if (sortByLaughs) {
+    //                 let jokesCopy = structuredClone(jokes)
+    //                 jokesCopy.sort((a, b) => b.laughCount - a.laughCount)
+    //                 setJokes(jokesCopy)
+    //             }
+    //         })
+    // }, [sortByLaughs, searchTerms])
 
     // useEffect(() => {
     //     getJokes(searchTerms)
@@ -53,8 +46,7 @@ const ListJokes = ({ jokes, userData, getJokes, setJokes }) => {
                     joke={joke}
                     userData={userData}
                     getJokes={getJokes}
-                    userLaughs={userLaughs}
-                    searchTerms={searchTerms} />)}
+                    userLaughs={userLaughs} />)}
             </div>
         </>
     )

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Input } from "reactstrap";
+import "./jokes.css";
 
 
 const SearchInput = ({ setSearchTerms }) => {
@@ -15,7 +16,7 @@ const SearchInput = ({ setSearchTerms }) => {
     }
 
     return (
-        <div className="search-input-container">
+        <div className="search-input-container side-margins margin-bottom">
             <Input type="text"
                 name="search"
                 value={searchInput}
