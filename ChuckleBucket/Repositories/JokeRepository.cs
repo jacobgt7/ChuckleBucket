@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 
 namespace ChuckleBucket.Repositories
 {
@@ -11,7 +12,7 @@ namespace ChuckleBucket.Repositories
     {
         public JokeRepository(IConfiguration config) : base(config) { }
 
-        public List<Joke> GetAllJokes()
+        public List<Joke> GetAllJokes(string searchTerms)
         {
             using (SqlConnection conn = Connection)
             {
@@ -24,9 +25,10 @@ namespace ChuckleBucket.Repositories
                                         JOIN UserProfile up ON j.UserProfileId = up.Id
                                         JOIN Category c ON j.CategoryId = c.Id
                                         LEFT JOIN Laugh l ON l.JokeId = j.Id
+                                        WHERE j.Text LIKE @searchTerms
                                         GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, up.ImageLocation, c.Name
                                         ORDER BY j.DateCreated DESC";
-
+                    DbUtils.AddParameter(cmd, "@searchTerms", searchTerms);
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         var jokes = new List<Joke>();
@@ -71,7 +73,7 @@ namespace ChuckleBucket.Repositories
             }
         }
 
-        public List<Joke> GetJokesByCategoryId(int categoryId) 
+        public List<Joke> GetJokesByCategoryId(int categoryId, string searchTerms) 
         {
             using(SqlConnection conn = Connection)
             {
@@ -84,10 +86,11 @@ namespace ChuckleBucket.Repositories
                                         JOIN UserProfile up ON j.UserProfileId = up.Id
                                         JOIN Category c ON j.CategoryId = c.Id
                                         LEFT JOIN Laugh l ON l.JokeId = j.Id
-                                        WHERE j.CategoryId = @categoryId
+                                        WHERE j.CategoryId = @categoryId AND j.Text LIKE @searchTerms
                                         GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, up.ImageLocation, c.Name
                                         ORDER BY j.DateCreated DESC";
                     DbUtils.AddParameter(cmd, "@categoryId", categoryId);
+                    DbUtils.AddParameter(cmd, "@searchTerms", searchTerms);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -103,7 +106,7 @@ namespace ChuckleBucket.Repositories
             }
         }
 
-        public List<Joke> GetJokesByAuthorId(int authorId) 
+        public List<Joke> GetJokesByAuthorId(int authorId, string searchTerms) 
         {
             using(SqlConnection conn = Connection)
             {
@@ -116,12 +119,13 @@ namespace ChuckleBucket.Repositories
                                         JOIN UserProfile up ON j.UserProfileId = up.Id
                                         JOIN Category c ON j.CategoryId = c.Id
                                         LEFT JOIN Laugh l ON l.JokeId = j.Id
-                                        WHERE j.UserProfileId = @authorId
+                                        WHERE j.UserProfileId = @authorId AND j.Text LIKE @searchTerms
                                         GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, up.ImageLocation, c.Name
                                         ORDER BY j.DateCreated DESC";
                     DbUtils.AddParameter(cmd, "@authorId", authorId);
+                    DbUtils.AddParameter(cmd, "@searchTerms", searchTerms);
 
-                    using(SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         var jokes = new List<Joke>();
 
@@ -135,7 +139,7 @@ namespace ChuckleBucket.Repositories
             }
         }
 
-        public List<Joke> GetFavoriteJokes(int userId)
+        public List<Joke> GetFavoriteJokes(int userId, string searchTerms)
         {
             using (SqlConnection conn = Connection)
             {
@@ -148,10 +152,11 @@ namespace ChuckleBucket.Repositories
                                         JOIN UserProfile up ON j.UserProfileId = up.Id
                                         JOIN Category c ON j.CategoryId = c.Id
                                         JOIN Laugh l ON l.JokeId = j.Id
-                                        WHERE l.UserProfileId = @userId
+                                        WHERE l.UserProfileId = @userId AND j.Text LIKE @searchTerms
                                         GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, up.ImageLocation, c.Name
                                         ORDER BY j.DateCreated DESC";
                     DbUtils.AddParameter(cmd, "@userId", userId);
+                    DbUtils.AddParameter(cmd, "@searchTerms", searchTerms);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {

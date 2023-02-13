@@ -2,9 +2,9 @@ import { getToken } from "./authManager"
 
 const baseUrl = "/api/Joke"
 
-export const getAllJokes = () => {
+export const getAllJokes = (searchTerms) => {
     return getToken().then(token => {
-        return fetch(baseUrl, {
+        return fetch(`${baseUrl}/${searchTerms}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -16,7 +16,7 @@ export const getAllJokes = () => {
 
 export const getJokeById = (id) => {
     return getToken().then(token => {
-        return fetch(`${baseUrl}/${id}`, {
+        return fetch(`${baseUrl}/edit/${id}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -26,9 +26,9 @@ export const getJokeById = (id) => {
     })
 }
 
-export const getJokesByCategory = (id) => {
+export const getJokesByCategory = (id, searchTerms) => {
     return getToken().then(token => {
-        return fetch(`${baseUrl}/category/${id}`, {
+        return fetch(`${baseUrl}/category/${id}/${searchTerms}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -38,9 +38,9 @@ export const getJokesByCategory = (id) => {
     })
 }
 
-export const getJokesByAuthor = (id) => {
+export const getJokesByAuthor = (id, searchTerms) => {
     return getToken().then(token => {
-        return fetch(`${baseUrl}/author/${id}`, {
+        return fetch(`${baseUrl}/author/${id}/${searchTerms}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -50,9 +50,9 @@ export const getJokesByAuthor = (id) => {
     })
 }
 
-export const getJokesByCurrentUser = () => {
+export const getJokesByCurrentUser = (searchTerms) => {
     return getToken().then(token => {
-        return fetch(`${baseUrl}/currentUser`, {
+        return fetch(`${baseUrl}/currentUser/${searchTerms}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -62,9 +62,9 @@ export const getJokesByCurrentUser = () => {
     })
 }
 
-export const getFavoriteJokes = () => {
+export const getFavoriteJokes = (searchTerms) => {
     return getToken().then(token => {
-        return fetch(`${baseUrl}/favorites`, {
+        return fetch(`${baseUrl}/favorites/${searchTerms}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`

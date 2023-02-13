@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { getUserLaughs } from "../../modules/jokesManager";
 import JokeCard from "./JokeCard";
+import SearchInput from "./SearchInput";
 
 
-const ListJokes = ({ jokes, userData, getJokes, setJokes }) => {
+const ListJokes = ({ jokes, userData, getJokes, setJokes, setSortByLaughs, sortByLaughs, setSearchTerms }) => {
     const [userLaughs, setUserLaughs] = useState([]);
-    const [sortByLaughs, setSortByLaughs] = useState(false);
-
 
 
     const getLaughs = () => {
@@ -21,20 +20,25 @@ const ListJokes = ({ jokes, userData, getJokes, setJokes }) => {
         getLaughs();
     }, []);
 
-    useEffect(() => {
-        let jokesCopy = structuredClone(jokes)
-        if (sortByLaughs) {
-            jokesCopy.sort((a, b) => b.laughCount - a.laughCount)
-            setJokes(jokesCopy)
-        }
-        else {
-            getJokes()
-        }
-    }, [sortByLaughs])
+    // useEffect(() => {
+    //     getJokes(searchTerms)
+    //         .then(() => {
+    //             if (sortByLaughs) {
+    //                 let jokesCopy = structuredClone(jokes)
+    //                 jokesCopy.sort((a, b) => b.laughCount - a.laughCount)
+    //                 setJokes(jokesCopy)
+    //             }
+    //         })
+    // }, [sortByLaughs, searchTerms])
+
+    // useEffect(() => {
+    //     getJokes(searchTerms)
+    // }, [searchTerms])
 
 
     return (
         <>
+            <SearchInput setSearchTerms={setSearchTerms} />
             {sortByLaughs ? <Button onClick={() => { setSortByLaughs(false) }}>Sorted By Laughs</Button>
                 : <Button onClick={() => { setSortByLaughs(true) }}>Sorted By Most Recent</Button>}
             <div className="card-container">

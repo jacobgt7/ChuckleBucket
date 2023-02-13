@@ -21,13 +21,14 @@ namespace ChuckleBucket.Controllers
             _userProfileRepository = userProfileRepository;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("{searchTerms}")]
+        public IActionResult Get(string searchTerms)
         {
-            return Ok(_jokeRepository.GetAllJokes());
+
+            return Ok(_jokeRepository.GetAllJokes(searchTerms));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("edit/{id}")]
         public IActionResult GetById(int id)
         {
             Joke joke = _jokeRepository.GetById(id);
@@ -38,10 +39,10 @@ namespace ChuckleBucket.Controllers
             return Ok(joke);
         }
 
-        [HttpGet("category/{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("category/{id}/{searchTerms}")]
+        public IActionResult Get(int id, string searchTerms)
         {
-            List<Joke> jokes = _jokeRepository.GetJokesByCategoryId(id);
+            List<Joke> jokes = _jokeRepository.GetJokesByCategoryId(id, searchTerms);
             if (jokes == null)
             {
                 return NotFound();
@@ -49,10 +50,10 @@ namespace ChuckleBucket.Controllers
             return Ok(jokes);
         }
 
-        [HttpGet("author/{id}")]
-        public IActionResult GetByAuthor(int id) 
+        [HttpGet("author/{id}/{searchTerms}")]
+        public IActionResult GetByAuthor(int id, string searchTerms) 
         {
-            List<Joke> jokes = _jokeRepository.GetJokesByAuthorId(id);
+            List<Joke> jokes = _jokeRepository.GetJokesByAuthorId(id, searchTerms);
             if (jokes == null)
             {
                 return NotFound();
@@ -61,20 +62,20 @@ namespace ChuckleBucket.Controllers
         }
 
         [Authorize]
-        [HttpGet("currentUser")]
-        public IActionResult GetByCurrentUser() 
+        [HttpGet("currentUser/{searchTerms}")]
+        public IActionResult GetByCurrentUser(string searchTerms) 
         {
             UserProfile currentUser = GetCurrentUserProfile();
-            List<Joke> jokes = _jokeRepository.GetJokesByAuthorId(currentUser.Id);
+            List<Joke> jokes = _jokeRepository.GetJokesByAuthorId(currentUser.Id, searchTerms);
             return Ok(jokes);
         }
 
         [Authorize]
-        [HttpGet("favorites")]
-        public IActionResult GetFavorites()
+        [HttpGet("favorites/{searchTerms}")]
+        public IActionResult GetFavorites(string searchTerms)
         {
             UserProfile currentUser = GetCurrentUserProfile();
-            List<Joke> jokes = _jokeRepository.GetFavoriteJokes(currentUser.Id);
+            List<Joke> jokes = _jokeRepository.GetFavoriteJokes(currentUser.Id, searchTerms);
             return Ok(jokes);
         }
 

@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, CardBody, CardFooter, CardHeader, CardSubtitle, CardText, CardTitle } from "reactstrap";
+import { Button, Card, CardBody, CardFooter, CardHeader, CardText } from "reactstrap";
 import { addLaugh, removeLaugh } from "../../modules/jokesManager";
 import "./jokes.css";
 
 const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
     const [laughed, setLaughed] = useState(false);
+    const [laughCounter, setLaughCounter] = useState(0);
 
     useEffect(() => {
         const mathcingLaugh = userLaughs.find(laugh => laugh.jokeId === joke.id)
         if (mathcingLaugh) {
             setLaughed(true)
         }
+        setLaughCounter(joke.laughCount)
     }, [])
 
     const navigate = useNavigate();
@@ -21,7 +23,7 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
 
         addLaugh(joke.id)
             .then(() => {
-                getJokes();
+                setLaughCounter(laughCounter + 1);
                 setLaughed(true);
             });
     }
@@ -31,7 +33,7 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
 
         removeLaugh(joke.id)
             .then(() => {
-                getJokes();
+                setLaughCounter(laughCounter - 1);
                 setLaughed(false);
             })
     }
@@ -55,9 +57,9 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
             <CardFooter className="joke-card--footer">
                 {laughed ? <Button color="info"
                     onClick={handleUnlaugh}>
-                    Laughed {`(${joke.laughCount})`}</Button>
+                    Laughed {`(${laughCounter})`}</Button>
                     : <Button onClick={handleLaugh}>
-                        Laugh {`(${joke.laughCount})`}
+                        Laugh {`(${laughCounter})`}
                     </Button>}
 
                 {joke.userProfileId === userData.id &&

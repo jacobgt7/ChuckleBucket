@@ -7,18 +7,23 @@ import "./jokes.css";
 
 const JokeAuthor = ({ userData }) => {
     const [jokes, setJokes] = useState([])
+    const [sortByLaughs, setSortByLaughs] = useState(false);
+    const [searchTerms, setSearchTerms] = useState("%%");
     const { id } = useParams();
 
     const getJokes = () => {
-        getJokesByAuthor(id)
+        return getJokesByAuthor(id, searchTerms)
             .then(jokesData => {
-                setJokes(jokesData)
+                if (sortByLaughs) {
+                    jokesData.sort((a, b) => b.laughCount - a.laughCount);
+                }
+                setJokes(jokesData);
             })
     }
 
     useEffect(() => {
         getJokes()
-    }, [])
+    }, [searchTerms, sortByLaughs])
 
     return (
         <>
@@ -28,7 +33,13 @@ const JokeAuthor = ({ userData }) => {
                     : "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"} />
                 <h1>{jokes[0]?.userProfile?.displayName}'s Jokes</h1>
             </div>
-            <ListJokes jokes={jokes} userData={userData} getJokes={getJokes} setJokes={setJokes} />
+            <ListJokes jokes={jokes}
+                userData={userData}
+                getJokes={getJokes}
+                setJokes={setJokes}
+                setSortByLaughs={setSortByLaughs}
+                sortByLaughs={sortByLaughs}
+                setSearchTerms={setSearchTerms} />
         </>
     )
 }
