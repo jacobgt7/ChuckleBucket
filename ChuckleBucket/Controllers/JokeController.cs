@@ -21,13 +21,14 @@ namespace ChuckleBucket.Controllers
             _userProfileRepository = userProfileRepository;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("{searchTerms}")]
+        public IActionResult Get(string searchTerms)
         {
-            return Ok(_jokeRepository.GetAllJokes());
+
+            return Ok(_jokeRepository.GetAllJokes(searchTerms));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("edit/{id}")]
         public IActionResult GetById(int id)
         {
             Joke joke = _jokeRepository.GetById(id);

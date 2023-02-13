@@ -2,9 +2,9 @@ import { getToken } from "./authManager"
 
 const baseUrl = "/api/Joke"
 
-export const getAllJokes = () => {
+export const getAllJokes = (searchTerms) => {
     return getToken().then(token => {
-        return fetch(baseUrl, {
+        return fetch(`${baseUrl}/${searchTerms}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -16,7 +16,7 @@ export const getAllJokes = () => {
 
 export const getJokeById = (id) => {
     return getToken().then(token => {
-        return fetch(`${baseUrl}/${id}`, {
+        return fetch(`${baseUrl}/edit/${id}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`

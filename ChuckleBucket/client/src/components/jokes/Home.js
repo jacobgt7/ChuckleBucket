@@ -7,15 +7,15 @@ import ListJokes from "./ListJokes";
 const Home = ({ userData }) => {
     const [jokes, setJokes] = useState([]);
 
-    const getJokes = () => {
-        getAllJokes()
+    const getJokes = (searchTerms) => {
+        return getAllJokes(searchTerms)
             .then(jokeData => {
                 setJokes(jokeData)
             })
     }
 
     useEffect(() => {
-        getJokes()
+        getJokes("%%")
     }, [])
 
     return (

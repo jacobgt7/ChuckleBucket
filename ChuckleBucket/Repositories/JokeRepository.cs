@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 
 namespace ChuckleBucket.Repositories
 {
@@ -11,7 +12,7 @@ namespace ChuckleBucket.Repositories
     {
         public JokeRepository(IConfiguration config) : base(config) { }
 
-        public List<Joke> GetAllJokes()
+        public List<Joke> GetAllJokes(string searchTerms)
         {
             using (SqlConnection conn = Connection)
             {
@@ -24,9 +25,10 @@ namespace ChuckleBucket.Repositories
                                         JOIN UserProfile up ON j.UserProfileId = up.Id
                                         JOIN Category c ON j.CategoryId = c.Id
                                         LEFT JOIN Laugh l ON l.JokeId = j.Id
+                                        WHERE j.Text LIKE @searchTerms
                                         GROUP BY j.Id, j.Text, j.UserProfileId, j.CategoryId, j.DateCreated, up.DisplayName, up.ImageLocation, c.Name
                                         ORDER BY j.DateCreated DESC";
-
+                    DbUtils.AddParameter(cmd, "@searchTerms", searchTerms);
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         var jokes = new List<Joke>();
