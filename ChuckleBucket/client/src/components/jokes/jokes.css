@@ -1,6 +1,8 @@
 .joke-card {
     margin: 1.5rem !important;
     width: 18rem !important;
+    min-width: 17rem !important;
+    box-shadow: 1px 2px 4px;
 }
 
 .joke-card--text {
@@ -9,7 +11,10 @@
 }
 
 .joke-card--footer {
-    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50x;
 }
 
 .card-container {
@@ -19,15 +24,19 @@
 }
 
 .margin-top {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
 
 .margin-bottom {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .strong-margin-bottom {
     margin-bottom: 1.5rem;
+}
+
+.strong-margin {
+    margin: 20px;
 }
 
 .author-header {
@@ -42,11 +51,12 @@
     width: 50px;
     height: 50px;
     margin-right: 0.5rem;
+    border: 1px solid gray;
 
 }
 
 .img-tiny {
-    border: 1px solid black;
+    border: 1px solid grey;
     width: 30px;
     height: 30px;
     margin: 4px;
@@ -62,4 +72,25 @@
     max-width: 320px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.background-grey {
+    background-color: #FBFCFD;
+}
+
+.form-group {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.joke-text-input {
+    height: 160px;
+}
+
+.joke-card-category-header {
+    width: 180px;
+    height: 37px;
+
 }

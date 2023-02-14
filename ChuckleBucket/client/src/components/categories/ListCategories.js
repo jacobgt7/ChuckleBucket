@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Badge } from "reactstrap";
+import { Badge, Button } from "reactstrap";
 import { getAllCategories } from "../../modules/categoriesManager";
 import "./categories.css"
 
@@ -23,12 +23,14 @@ const ListCategories = () => {
 
     return (
         <>
-            <h1>Categories</h1>
+            <h1 className="page-top margin-bottom">Categories</h1>
             <div className="categories-list">
                 {categories.map(category => {
-                    return <Badge pill color="light" className="side-margins margin-top" key={category.id}>
-                        <Link to={`/jokes/category/${category.id}`}><h4>{category.name}</h4></Link>
-                    </Badge>
+                    return <Button className="strong-margin"
+                        key={category.id}
+                        onClick={() => { navigate(`/jokes/category/${category.id}`) }}>
+                        <h5>{category.name}</h5>
+                    </Button>
                 })}
             </div>
         </>

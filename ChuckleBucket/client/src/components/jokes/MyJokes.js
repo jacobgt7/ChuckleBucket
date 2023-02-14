@@ -29,7 +29,7 @@ const MyJokes = ({ userData }) => {
 
     return (
         <>
-            <h1>My Jokes</h1>
+            <h1 className="page-top margin-bottom">My Jokes</h1>
             <div className="strong-margin-bottom">
                 <Button onClick={() => { navigate("/jokes/new") }}>Create New</Button>
                 {" "}

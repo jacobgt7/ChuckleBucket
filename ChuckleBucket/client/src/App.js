@@ -25,7 +25,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header isLoggedIn={isLoggedIn} userData={userData} />
-        <ApplicationViews isLoggedIn={isLoggedIn} userData={userData} setUserData={setUserData} />
+        <ApplicationViews
+          isLoggedIn={isLoggedIn}
+          userData={userData}
+          setUserData={setUserData} />
       </BrowserRouter>
     </div>
   );

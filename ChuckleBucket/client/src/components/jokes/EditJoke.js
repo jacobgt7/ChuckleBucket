@@ -70,13 +70,14 @@ const EditJoke = ({ userData }) => {
 
     return (
         <>
-            <h1>Edit Joke</h1>
+            <h1 className="page-top margin-bottom">Edit Joke</h1>
             <Form className="side-margins">
-                <FormGroup>
+                <FormGroup className="form-group">
                     <Label for="jokeTextInput">Joke Text</Label>
                     <Input type="textarea"
                         id="jokeTextInput"
                         name="text"
+                        className="joke-text-input"
                         value={text}
                         invalid={textInvalid}
                         onChange={handleTextInput}></Input>
@@ -84,7 +85,7 @@ const EditJoke = ({ userData }) => {
                         Must write something here.
                     </FormFeedback>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup className="form-group">
                     <Label for="categorySelect">Category</Label>
                     <Input type="select"
                         id="categorySelect"

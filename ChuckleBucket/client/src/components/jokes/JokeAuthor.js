@@ -27,7 +27,7 @@ const JokeAuthor = ({ userData }) => {
 
     return (
         <>
-            <div className="author-header">
+            <div className="author-header page-top margin-bottom">
                 <img className="author-header--image" src={jokes[0]?.userProfile?.imageLocation ?
                     jokes[0]?.userProfile?.imageLocation
                     : "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"} />

@@ -18,7 +18,7 @@ export default function Header({ isLoggedIn }) {
 
     return (
         <div>
-            <Navbar color="dark" dark expand="md">
+            <Navbar className="navbar" color="dark" dark expand="md">
                 <NavbarBrand className="App-brand" tag={RRNavLink} to="/">
                     Chuckle Bucket
                 </NavbarBrand>
