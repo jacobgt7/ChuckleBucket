@@ -6,9 +6,15 @@
 
 .profileImg {
     width: 150px;
+    height: 150px;
     margin: 1rem;
+    border: 1px solid grey;
 }
 
 .profileInfoTable {
     text-align: left;
+}
+
+.underline {
+    border-bottom: 1px solid grey;
 }

@@ -95,9 +95,9 @@ const EditProfile = ({ userData }) => {
 
     return (
         <>
-            <h1>Edit Profile</h1>
+            <h1 className="page-top margin-bottom">Edit Profile</h1>
             <Form className="side-margins">
-                <FormGroup >
+                <FormGroup className="form-group" >
                     <Label for="displayNameInput">Display Name</Label>
                     <Input id="displayNameInput"
                         name="displayName"
@@ -106,7 +106,7 @@ const EditProfile = ({ userData }) => {
                         onChange={handleDisplayNameInput}></Input>
                     <FormFeedback>Display name already taken. Try Another.</FormFeedback>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup className="form-group">
                     <Label for="firstNameInput">First Name</Label>
                     <Input id="firstNameInput"
                         name="firstName"
@@ -115,7 +115,7 @@ const EditProfile = ({ userData }) => {
                         onChange={handleFirstNameInput}></Input>
                     <FormFeedback>Must have a first name.</FormFeedback>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup className="form-group">
                     <Label for="lastNameInput">Last Name</Label>
                     <Input id="lastNameInput"
                         name="lastName"
@@ -124,7 +124,7 @@ const EditProfile = ({ userData }) => {
                         onChange={handleLastNameInput}></Input>
                     <FormFeedback>Must have a last name.</FormFeedback>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup className="form-group">
                     <Label for="imageLocationInput">Profile Image Url</Label>
                     <Input id="imageLocationInput"
                         name="imageLocation"

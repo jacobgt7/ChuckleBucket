@@ -25,7 +25,7 @@ const Home = ({ userData }) => {
 
     return (
         <>
-            <h1>Fresh Jokes</h1>
+            <h1 className="page-top margin-bottom">Fresh Jokes</h1>
             <ListJokes jokes={jokes}
                 userData={userData}
                 getJokes={getJokes}

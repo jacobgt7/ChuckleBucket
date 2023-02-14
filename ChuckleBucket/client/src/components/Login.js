@@ -29,7 +29,7 @@ export default function Login({ setUserData }) {
             <h1 className="App-brand">Chuckle Bucket</h1>
             <Form onSubmit={loginSubmit} className="side-margins">
                 <fieldset>
-                    <FormGroup>
+                    <FormGroup className="form-group">
                         <Label for="email">Email</Label>
                         <Input
                             id="email"
@@ -38,7 +38,7 @@ export default function Login({ setUserData }) {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup className="form-group">
                         <Label for="password">Password</Label>
                         <Input
                             id="password"

@@ -41,9 +41,10 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
     return (
         <Card className="joke-card">
             <CardHeader>
-                <Link to={`/jokes/category/${joke.categoryId}`}>{joke.category.name}</Link>
+                <Button className="joke-card-category-header"
+                    onClick={() => { navigate(`/jokes/category/${joke.categoryId}`) }}>{joke.category.name}</Button>
             </CardHeader>
-            <CardBody>
+            <CardBody className="background-grey">
                 <CardText className="joke-card--text overflow-auto">
                     {joke.text}
                 </CardText>
@@ -55,15 +56,17 @@ const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
 
             </CardBody>
             <CardFooter className="joke-card--footer">
-                {laughed ? <Button color="info"
-                    onClick={handleUnlaugh}>
-                    Laughed {`(${laughCounter})`}</Button>
-                    : <Button onClick={handleLaugh}>
-                        Laugh {`(${laughCounter})`}
-                    </Button>}
+                <div>
+                    {laughed ? <Button color="info"
+                        onClick={handleUnlaugh}>
+                        &#129315; {`(${laughCounter})`}</Button>
+                        : <Button onClick={handleLaugh}>
+                            &#129315; {`(${laughCounter})`}
+                        </Button>}
+                </div>
 
                 {joke.userProfileId === userData.id &&
-                    <div className="margin-top">
+                    <div className="side-margins">
                         <Button onClick={() => { navigate(`/jokes/edit/${joke.id}`) }}>Edit</Button>
                     </div>}
 

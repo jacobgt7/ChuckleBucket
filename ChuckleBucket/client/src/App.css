@@ -44,3 +44,14 @@
 .App-brand {
   font-family: 'Mochiy Pop One', sans-serif;
 }
+
+.navbar {
+  position: fixed !important;
+  top: 0;
+  z-index: 1;
+  width: 100% !important;
+}
+
+.page-top {
+  margin-top: 97px;
+}

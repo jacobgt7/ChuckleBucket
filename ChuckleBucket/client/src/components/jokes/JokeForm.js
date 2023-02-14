@@ -51,13 +51,14 @@ const JokeForm = ({ userData }) => {
 
     return (
         <>
-            <h1>Create a New Joke</h1>
+            <h1 className="page-top margin-bottom">Create a New Joke</h1>
             <Form className="side-margins">
-                <FormGroup>
-                    <Label for="jokeTextInput">Joke Text</Label>
+                <FormGroup className="form-group">
+                    <Label className="form-label" for="jokeTextInput">Joke Text</Label>
                     <Input type="textarea"
                         id="jokeTextInput"
                         name="text"
+                        className="joke-text-input"
                         placeholder="Type joke here..."
                         invalid={textInvalid}
                         onChange={handleTextInput}></Input>
@@ -65,7 +66,7 @@ const JokeForm = ({ userData }) => {
                         Must write something here.
                     </FormFeedback>
                 </FormGroup>
-                <FormGroup>
+                <FormGroup className="form-group">
                     <Label for="categorySelect">Category</Label>
                     <Input type="select"
                         id="categorySelect"

@@ -25,7 +25,7 @@ const Favorites = ({ userData }) => {
 
     return (
         <>
-            <h1>My Favorites</h1>
+            <h1 className="page-top margin-bottom">My Favorites</h1>
             <ListJokes jokes={jokes}
                 userData={userData}
                 getJokes={getJokes}
