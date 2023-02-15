@@ -29,8 +29,7 @@ export default function Register({ setUserData }) {
             })
     }, [])
 
-    const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
+    const validEmailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
     const registerClick = (e) => {
         e.preventDefault();
@@ -40,7 +39,7 @@ export default function Register({ setUserData }) {
             setLastNameInvalid(true);
         } else if (displayName?.trim().lenth === 0 || displayName === allDisplayNames.find(dn => dn === displayName)) {
             setDisplayNameInvalid(true);
-        } else if (!email.match(validEmailRegex)) {
+        } else if (!validEmailRegex.test(email)) {
             setEmailInvalid(true);
         } else if (password?.trim().length < 8) {
             setPasswordInvalid(true);
