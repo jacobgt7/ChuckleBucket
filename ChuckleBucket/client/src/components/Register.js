@@ -1,23 +1,50 @@
-import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Form, FormGroup, Label, Input, FormFeedback } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { login, register } from "../modules/authManager";
 import "./forms.css";
+import { getAllDisplayNames } from "../modules/userProfileManager";
 
 export default function Register({ setUserData }) {
     const navigate = useNavigate();
 
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
-    const [email, setEmail] = useState();
-    const [displayName, setDisplayName] = useState();
-    const [imageLocation, setImageLocation] = useState();
-    const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [displayName, setDisplayName] = useState("");
+    const [imageLocation, setImageLocation] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [firstNameInvalid, setFirstNameInvalid] = useState(false);
+    const [lastNameInvalid, setLastNameInvalid] = useState(false);
+    const [displayNameInvalid, setDisplayNameInvalid] = useState(false);
+    const [emailInvalid, setEmailInvalid] = useState(false);
+    const [passwordInvalid, setPasswordInvalid] = useState(false);
+    const [allDisplayNames, setAllDisplayNames] = useState([]);
+
+    useEffect(() => {
+        getAllDisplayNames()
+            .then(displayNamesData => {
+                setAllDisplayNames(displayNamesData);
+            })
+    }, [])
+
+    const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 
     const registerClick = (e) => {
         e.preventDefault();
-        if (password && password !== confirmPassword) {
+        if (firstName?.trim().length === 0) {
+            setFirstNameInvalid(true);
+        } else if (lastName?.trim().length === 0) {
+            setLastNameInvalid(true);
+        } else if (displayName?.trim().lenth === 0 || displayName === allDisplayNames.find(dn => dn === displayName)) {
+            setDisplayNameInvalid(true);
+        } else if (!email.match(validEmailRegex)) {
+            setEmailInvalid(true);
+        } else if (password?.trim().length < 8) {
+            setPasswordInvalid(true);
+        } else if (password && password !== confirmPassword) {
             alert("Passwords don't match. Do better.");
         } else {
             const userProfile = { firstName, lastName, displayName, email, imageLocation };
@@ -46,8 +73,13 @@ export default function Register({ setUserData }) {
                             id="firstName"
                             type="text"
                             autoFocus
-                            onChange={(e) => setFirstName(e.target.value)}
+                            invalid={firstNameInvalid}
+                            onChange={(e) => {
+                                setFirstNameInvalid(false)
+                                setFirstName(e.target.value)
+                            }}
                         />
+                        <FormFeedback>Cannot be empty</FormFeedback>
                     </FormGroup>
                     <FormGroup className="form-group">
                         <Label htmlFor="lastName">Last Name</Label>
@@ -55,25 +87,40 @@ export default function Register({ setUserData }) {
                             id="lastName"
                             type="text"
                             autoFocus
-                            onChange={(e) => setLastName(e.target.value)}
+                            invalid={lastNameInvalid}
+                            onChange={(e) => {
+                                setLastNameInvalid(false)
+                                setLastName(e.target.value)
+                            }}
                         />
+                        <FormFeedback>Cannot be empty</FormFeedback>
                     </FormGroup>
                     <FormGroup className="form-group">
                         <Label htmlFor="displayName">Display Name</Label>
                         <Input
                             id="displayName"
                             type="text"
+                            invalid={displayNameInvalid}
                             autoFocus
-                            onChange={(e) => setDisplayName(e.target.value)}
+                            onChange={(e) => {
+                                setDisplayNameInvalid(false)
+                                setDisplayName(e.target.value)
+                            }}
                         />
+                        <FormFeedback>Display name already taken! Try another.</FormFeedback>
                     </FormGroup>
                     <FormGroup className="form-group">
                         <Label for="email">Email</Label>
                         <Input
                             id="email"
-                            type="text"
-                            onChange={(e) => setEmail(e.target.value)}
+                            type="email"
+                            invalid={emailInvalid}
+                            onChange={(e) => {
+                                setEmailInvalid(false)
+                                setEmail(e.target.value)
+                            }}
                         />
+                        <FormFeedback>Must be a valid email address.</FormFeedback>
                     </FormGroup>
                     <FormGroup className="form-group">
                         <Label for="imageLocation">Profile Picture URL</Label>
@@ -88,8 +135,13 @@ export default function Register({ setUserData }) {
                         <Input
                             id="password"
                             type="password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            invalid={passwordInvalid}
+                            onChange={(e) => {
+                                setPasswordInvalid(false)
+                                setPassword(e.target.value)
+                            }}
                         />
+                        <FormFeedback>Must be at least 8 characters long.</FormFeedback>
                     </FormGroup>
                     <FormGroup className="form-group">
                         <Label for="confirmPassword">Confirm Password</Label>

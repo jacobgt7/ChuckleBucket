@@ -15,15 +15,8 @@ export const getUserById = (id) => {
 }
 
 export const getAllDisplayNames = () => {
-    return getToken().then(token => {
-        return fetch(`${baseUrl}/allDisplayNames`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-    })
+    return fetch(`${baseUrl}/allDisplayNames`)
+        .then(res => res.json())
 }
 
 export const updateUser = (id, userProfile) => {
