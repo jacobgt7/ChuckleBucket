@@ -98,13 +98,15 @@ const EditJoke = ({ userData }) => {
                         </option>)}
                     </Input>
                 </FormGroup>
-                <Button onClick={handleSubmit}>Submit</Button>
-                {' '}
-                <Button onClick={() => { navigate("/jokes/my") }}>Cancel</Button>
-                {' '}
-                {confirmDelete ? <>Delete? <Button onClick={handleDelete} color="danger">Yes</Button>
-                    <Button onClick={() => { setConfirmDelete(false) }}>No</Button></>
-                    : <Button color="danger" onClick={() => { setConfirmDelete(true) }}>Delete</Button>}
+                <div className="margin-bottom">
+                    <Button onClick={handleSubmit}>Submit</Button>
+                    {' '}
+                    <Button onClick={() => { navigate("/jokes/my") }}>Cancel</Button>
+                    {' '}
+                    {confirmDelete ? <>Delete? <Button onClick={handleDelete} color="danger">Yes</Button>{" "}
+                        <Button onClick={() => { setConfirmDelete(false) }}>No</Button></>
+                        : <Button color="danger" onClick={() => { setConfirmDelete(true) }}>Delete</Button>}
+                </div>
 
             </Form>
         </>

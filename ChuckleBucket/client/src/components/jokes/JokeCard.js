@@ -4,7 +4,7 @@ import { Button, Card, CardBody, CardFooter, CardHeader, CardText } from "reacts
 import { addLaugh, removeLaugh } from "../../modules/jokesManager";
 import "./jokes.css";
 
-const JokeCard = ({ joke, userData, getJokes, userLaughs }) => {
+const JokeCard = ({ joke, userData, userLaughs }) => {
     const [laughed, setLaughed] = useState(false);
     const [laughCounter, setLaughCounter] = useState(0);
 

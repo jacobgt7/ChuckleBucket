@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Button } from "reactstrap";
 import { getAllJokes } from "../../modules/jokesManager";
 import ListJokes from "./ListJokes";
 

@@ -131,9 +131,11 @@ const EditProfile = ({ userData }) => {
                         value={imageLocation}
                         onChange={handleImageLocationInput}></Input>
                 </FormGroup>
-                <Button onClick={handleSave}>Save</Button>
-                {" "}
-                <Button onClick={() => { navigate("/profile") }}>Cancel</Button>
+                <div className="margin-bottom">
+                    <Button onClick={handleSave}>Save</Button>
+                    {" "}
+                    <Button onClick={() => { navigate("/profile") }}>Cancel</Button>
+                </div>
             </Form>
         </>
     )
