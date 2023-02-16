@@ -63,7 +63,7 @@ export default function Register({ setUserData }) {
 
     return (
         <>
-            <h1 className="margin-bottom">New User Registration</h1>
+            <h1 className="margin-bottom page-top">New User Registration</h1>
             <Form onSubmit={registerClick} className="side-margins">
                 <fieldset>
                     <FormGroup className="form-group">

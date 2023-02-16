@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import ListCategories from "./categories/ListCategories";
 import EditJoke from "./jokes/EditJoke";

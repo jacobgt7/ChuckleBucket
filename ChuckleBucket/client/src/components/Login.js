@@ -26,7 +26,7 @@ export default function Login({ setUserData }) {
 
     return (
         <>
-            <h1 className="App-brand">Chuckle Bucket</h1>
+            <h1 className="App-brand page-top">Chuckle Bucket</h1>
             <Form onSubmit={loginSubmit} className="side-margins">
                 <fieldset>
                     <FormGroup className="form-group">

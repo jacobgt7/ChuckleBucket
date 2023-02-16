@@ -83,9 +83,11 @@ const JokeForm = ({ userData }) => {
                         Must select a category.
                     </FormFeedback>
                 </FormGroup>
-                <Button onClick={handleSubmit}>Submit</Button>
-                {" "}
-                <Button onClick={() => { navigate("/jokes/my") }}>Cancel</Button>
+                <div className="margin-bottom">
+                    <Button onClick={handleSubmit}>Submit</Button>
+                    {" "}
+                    <Button onClick={() => { navigate("/jokes/my") }}>Cancel</Button>
+                </div>
             </Form>
         </>
     )
