@@ -44,6 +44,16 @@ recent.  There is a toggle button at the top of the view which stated the method
 of sorting being used.
 
 
+## Search Jokes
+
+Jokes can be searched through on each view that displays jokes.  The set of jokes
+searched through is the same set for that partciulat view.  The search feature
+takes the search terms provided and searches through the the text of all jokes
+for the given set and matches jokes that have the terms provided in the order
+they are provided, but they do not have to be adjacent to each other to return
+a match.
+
+
 ## Laugh at Jokes
 
 The "Laugh" feature is how jokes are evaluated by the sites users.  Every joke has
