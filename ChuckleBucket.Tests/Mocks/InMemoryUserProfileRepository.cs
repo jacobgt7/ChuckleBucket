@@ -1,4 +1,5 @@
 ﻿using ChuckleBucket.Models;
+using ChuckleBucket.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChuckleBucket.Tests.Mocks
 {
-    class InMemoryUserProfileRepository
+    class InMemoryUserProfileRepository : IUserProfileRepository
     {
         private readonly List<UserProfile> _data;
 
@@ -36,6 +37,20 @@ namespace ChuckleBucket.Tests.Mocks
         public void Add(UserProfile userProfile)
         {
             _data.Add(userProfile);
+        }
+
+        public void Update(UserProfile userProfile)
+        {
+            var currentProfile = _data.FirstOrDefault(p => p.Id == userProfile.Id);
+            if (currentProfile == null) 
+            {
+                return;
+            }
+            currentProfile.FirstName = userProfile.FirstName;
+            currentProfile.LastName = userProfile.LastName;
+            currentProfile.Email = userProfile.Email;
+            currentProfile.DisplayName = userProfile.DisplayName;
+            currentProfile.ImageLocation = userProfile.ImageLocation;
         }
     }
 }
