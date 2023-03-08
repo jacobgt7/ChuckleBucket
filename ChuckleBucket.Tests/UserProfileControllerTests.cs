@@ -33,6 +33,51 @@ namespace ChuckleBucket.Tests
             Assert.Equal(testId, actualProfile.Id);
         }
 
+        [Fact]
+        public void GetDisplayNames_Returns_List_Of_Display_Names()
+        {
+            // Arrange
+            var profileCount = 5;
+            var profiles = CreateTestProfiles(profileCount);
+            var repo = new InMemoryUserProfileRepository(profiles);
+            var controller = new UserProfileController(repo);
+
+            // Act
+            var result = controller.GetDisplayNames();
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var actualDisplayNames = Assert.IsType<List<string>>(okResult.Value);
+
+            Assert.Equal(profileCount, actualDisplayNames.Count);
+        }
+
+        [Fact]
+        public void Post_Creates_A_New_UserProfile()
+        {
+            // Arrange
+            var profileCount = 20;
+            var profiles = CreateTestProfiles(profileCount);
+            var repo = new InMemoryUserProfileRepository(profiles);
+            var controller = new UserProfileController(repo);
+
+            // Act
+            controller.Post(new UserProfile
+            {
+                Id = 99,
+                FirstName = "Test",
+                LastName = "Test",
+                DisplayName = "Test",
+                Email = "Test",
+            });
+
+            // Assert
+            Assert.Equal(profileCount + 1, repo.InternalData.Count);
+        }
+
+        
+        
+
         private List<UserProfile> CreateTestProfiles(int count)
         {
             var profiles = new List<UserProfile>();
