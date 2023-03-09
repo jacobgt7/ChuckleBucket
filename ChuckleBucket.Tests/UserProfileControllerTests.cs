@@ -14,7 +14,27 @@ namespace ChuckleBucket.Tests
     public class UserProfileControllerTests
     {
         [Fact]
-        public void Get_By_Id_Returns_Mathcing_UserProfile()
+        public void DoesUserExist_Method_Returns_Matching_UserProfile()
+        {
+            // Arrange
+            var profiles = CreateTestProfiles(20);
+            var testFirebaseUserId = "99999";
+            profiles[0].FirebaseUserId = testFirebaseUserId;
+            var repo = new InMemoryUserProfileRepository(profiles);
+            var contoller = new UserProfileController(repo);
+
+            // Act
+            var result = contoller.DoesUserExist(testFirebaseUserId);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var actualProfile = Assert.IsType<UserProfile>(okResult.Value);
+
+            Assert.Equal(testFirebaseUserId, actualProfile.FirebaseUserId);
+        }
+
+        [Fact]
+        public void Get_By_Id_Returns_Matching_UserProfile()
         {
             // Arrange
             var profiles = CreateTestProfiles(20);

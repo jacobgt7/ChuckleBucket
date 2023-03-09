@@ -21,7 +21,7 @@ namespace ChuckleBucket.Tests.Mocks
 
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {
-            throw new NotImplementedException();
+            return _data.FirstOrDefault(p => p.FirebaseUserId == firebaseUserId);
         }
 
         public UserProfile GetById(int id)
