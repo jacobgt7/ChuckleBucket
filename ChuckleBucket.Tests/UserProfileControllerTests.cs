@@ -75,7 +75,52 @@ namespace ChuckleBucket.Tests
             Assert.Equal(profileCount + 1, repo.InternalData.Count);
         }
 
-        
+        [Fact]
+        public void Put_Method_Returns_BadRequest_When_Ids_Dont_Match()
+        {
+            // Arrange
+            var profiles = CreateTestProfiles(5);
+            var repo = new InMemoryUserProfileRepository(profiles);
+            var controller = new UserProfileController(repo);
+            var testId = 99;
+
+            // Act
+            var result = controller.Put(testId, new UserProfile
+            {
+                Id = testId + 1,
+            });
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result);
+        }
+
+        [Fact]
+        public void Put_Method_Updates_A_Profile()
+        {
+            // Arrange
+            var profiles = CreateTestProfiles(5);
+            var testId = 99;
+            profiles[0].Id = testId;
+            var repo = new InMemoryUserProfileRepository(profiles);
+            var controller = new UserProfileController(repo);
+            
+            var profileToUpdate = new UserProfile
+            {
+                Id = testId,
+                FirstName = "Updated!",
+                LastName = "Updated!",
+                DisplayName = "Updated!"
+            };
+
+            // Act
+            controller.Put(testId, profileToUpdate);
+
+            // Assert
+            var profileFromDB = repo.InternalData.FirstOrDefault(p => p.Id == testId);
+            Assert.Equal(profileToUpdate.FirstName, profileFromDB.FirstName);
+            Assert.Equal(profileToUpdate.LastName, profileFromDB.LastName);
+            Assert.Equal(profileToUpdate.DisplayName, profileFromDB.DisplayName);
+        }
         
 
         private List<UserProfile> CreateTestProfiles(int count)
