@@ -1,4 +1,5 @@
 ﻿using ChuckleBucket.Models;
+using ChuckleBucket.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChuckleBucket.Tests.Mocks
 {
-    internal class InMemoryJokeRepository
+    internal class InMemoryJokeRepository : IJokeRepository
     {
         private readonly List<Joke> _data;
         private readonly List<Laugh> _laughData;
@@ -95,7 +96,19 @@ namespace ChuckleBucket.Tests.Mocks
 
         public List<Joke> GetFavoriteJokes(int userId, string searchTerms)
         {
-            throw new NotImplementedException;
+            var favoriteJokes = new List<Joke>();
+            var userLaughs = _laughData.Where(l => l.UserProfileId == userId).ToList();
+            foreach (var laugh in userLaughs)
+            {
+                var matchingJoke = _data.FirstOrDefault(j => j.Id == laugh.JokeId);
+                if (matchingJoke != null)
+                {
+                  favoriteJokes.Add(matchingJoke);
+                }
+            }
+            return favoriteJokes;
         }
+
+
     }
 }
